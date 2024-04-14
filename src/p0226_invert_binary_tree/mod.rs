@@ -19,7 +19,8 @@ fn invert_tree(node: &mut Option<Rc<RefCell<TreeNode>>>) {
 }
 pub fn solve() {
     let nodes = vec![1,2,3,4,5,6,7];
-    let mut root = build_tree(&nodes, 0);
+    let some_nodes = nodes.iter().map(|&x| Some(x)).collect::<Vec<_>>();
+    let mut root = build_tree(&some_nodes, 0);
     print_tree_level_order(&root);
     println!();
     invert_tree(&mut root);

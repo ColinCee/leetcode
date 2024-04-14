@@ -17,11 +17,11 @@ impl TreeNode {
     }
 }
 
-pub fn build_tree(nodes: &[i32], index: usize) -> Option<Rc<RefCell<TreeNode>>> {
-  if index >= nodes.len() || nodes[index] == -1 {
+pub fn build_tree(nodes: &[Option<i32>], index: usize) -> Option<Rc<RefCell<TreeNode>>> {
+  if index >= nodes.len() || nodes[index].is_none() {
       None
   } else {
-      let node = Rc::new(RefCell::new(TreeNode::new(nodes[index])));
+      let node = Rc::new(RefCell::new(TreeNode::new(nodes[index].unwrap())));
       let left_index = 2 * index + 1;
       let right_index = 2 * index + 2;
 
