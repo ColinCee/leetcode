@@ -1,15 +1,15 @@
-use std::collections::VecDeque;
+use std::{cell::RefCell, collections::VecDeque, rc::Rc};
 
 #[derive(Debug)]
-pub struct Node {
+pub struct TreeNode {
     pub val: i32,
-    pub left: Option<Box<Node>>,
-    pub right: Option<Box<Node>>,
+    pub left: Option<Rc<RefCell<TreeNode>>>,
+    pub right: Option<Rc<RefCell<TreeNode>>>,
 }
 
-impl Node {
+impl TreeNode {
     pub fn new(val: i32) -> Self {
-        Node {
+      TreeNode {
             val,
             left: None,
             right: None,
@@ -17,41 +17,41 @@ impl Node {
     }
 }
 
-pub fn build_tree(nodes: &[i32], index: usize) -> Option<Box<Node>> {
-  if index >= nodes.len() {
-      return None;
+pub fn build_tree(nodes: &[i32], index: usize) -> Option<Rc<RefCell<TreeNode>>> {
+  if index >= nodes.len() || nodes[index] == -1 {
+      None
+  } else {
+      let node = Rc::new(RefCell::new(TreeNode::new(nodes[index])));
+      let left_index = 2 * index + 1;
+      let right_index = 2 * index + 2;
+
+      node.borrow_mut().left = build_tree(nodes, left_index);
+      node.borrow_mut().right = build_tree(nodes, right_index);
+
+      Some(node)
   }
-
-  let val = nodes[index];
-  let mut node = Box::new(Node::new(val));
-
-  node.left = build_tree(nodes, 2 * index + 1);
-  node.right = build_tree(nodes, 2 * index + 2);
-  Some(node)
 }
 
-// Function to traverse the binary tree and print the values in BFS order
-pub fn print_values(root: &Option<Box<Node>>) {
-  if root.is_none() {
-      return;
-  }
+pub fn print_tree_level_order(root: &Option<Rc<RefCell<TreeNode>>>) {
+  if let Some(node) = root {
+      let mut queue = VecDeque::new();
+      queue.push_back(node.clone());
 
-  let mut queue = VecDeque::new();
-  queue.push_back(root);
+      while !queue.is_empty() {
+        if let Some(current_node) = queue.pop_front() {
+          print!("{} ", current_node.borrow().val); 
 
-  while !queue.is_empty() {
-      let node = queue.pop_front().unwrap();
-
-      if let Some(node) = node {
-          print!("{} ", node.val);
-
-          if node.left.is_some() {
-              queue.push_back(&node.left);
+          let current_node_ref = current_node.borrow();
+          if let Some(left_node) = &current_node_ref.left {
+              queue.push_back(left_node.clone());
           }
-
-          if node.right.is_some() {
-              queue.push_back(&node.right);
+          if let Some(right_node) = &current_node_ref.right {
+              queue.push_back(right_node.clone());
           }
+        }
+
       }
+
+      println!();
   }
 }
