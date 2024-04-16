@@ -35,23 +35,21 @@ pub fn build_tree(nodes: &[Option<i32>], index: usize) -> Option<Rc<RefCell<Tree
 pub fn print_tree_level_order(root: &Option<Rc<RefCell<TreeNode>>>) {
   if let Some(node) = root {
       let mut queue = VecDeque::new();
-      queue.push_back(node.clone());
+      queue.push_back(Some(node.clone()));
 
       while !queue.is_empty() {
-        if let Some(current_node) = queue.pop_front() {
-          print!("{} ", current_node.borrow().val); 
+          if let Some(current_node_opt) = queue.pop_front() {
+              if let Some(current_node) = current_node_opt {
+                  print!("{} ", current_node.borrow().val);
 
-          let current_node_ref = current_node.borrow();
-          if let Some(left_node) = &current_node_ref.left {
-              queue.push_back(left_node.clone());
+                  let current_node_ref = current_node.borrow();
+                  queue.push_back(current_node_ref.left.clone());
+                  queue.push_back(current_node_ref.right.clone());
+              } else {
+                  print!("null ");
+              }
           }
-          if let Some(right_node) = &current_node_ref.right {
-              queue.push_back(right_node.clone());
-          }
-        }
-
       }
-
       println!();
   }
 }

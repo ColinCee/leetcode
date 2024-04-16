@@ -1,6 +1,5 @@
 use std::env;
 use std::fs;
-use std::path::Path;
 
 fn main() {
     // Get the problem title from command line arguments
