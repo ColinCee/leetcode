@@ -11,65 +11,28 @@ impl Solution {
         }
     }
 
-    // DFS
-    // Keep track of current string for until first leaf, reverse it
-    // Recursively find next leaf, return early if depth is > current min string length
-    // If string len is shorter than min replace with current
-    // If all characters are less than min, replace with current
-    pub fn recursive_min_string(
-        node: &Option<Rc<RefCell<TreeNode>>>,
-        prev_string: &Option<Vec<char>>,
-    ) -> Option<Vec<char>> {
-        if let Some(node) = node {
-            let node_ref = node.borrow();
-            let TreeNode { left, right, val } = &*node_ref;
-            // println!("Current {}", Solution::i32_to_char(val));
-
-            let current_string = match prev_string {
-                Some(s) => {
-                    let mut s = s.clone();
-                    s.push(Solution::i32_to_char(val));
-                    Some(s)
-                }
-                None => Some(vec![Solution::i32_to_char(val)]),
-            };
-
-            if left.is_none() && right.is_none() {
-                return current_string;
-            }
-
-            let min_left = Solution::recursive_min_string(left, &current_string.clone());
-            let min_right = Solution::recursive_min_string(right, &current_string.clone());
-
-            // There's at least one min here
-            if min_left.is_some() && min_right.is_none() {
-                return min_left;
-            }
-
-            if min_right.is_some() && min_left.is_none() {
-                return min_right;
-            }
-
-            // Lengths are not always equal
-            let min_left_rev = min_left.as_ref().unwrap().iter().rev().collect::<Vec<_>>();
-            let min_right_rev = min_right.as_ref().unwrap().iter().rev().collect::<Vec<_>>();
-
-            return if min_left_rev < min_right_rev {
-                min_left
-            } else {
-                min_right
-            };
-        }
-
-        return None;
+    pub fn smallest_from_leaf(root: Option<Rc<RefCell<TreeNode>>>) -> String {
+        let mut smallest = String::new();
+        Self::dfs(&root, &mut Vec::new(), &mut smallest);
+        smallest
     }
 
-    pub fn smallest_from_leaf(root: Option<Rc<RefCell<TreeNode>>>) -> String {
-        let vec = Solution::recursive_min_string(&root, &None);
-        let vec = vec.expect("No result found"); // Unwrap the Option<Vec<char>>
-        let s: String = vec.into_iter().collect();
-        let reversed_s: String = s.chars().rev().collect();
-        return reversed_s;
+    fn dfs(node: &Option<Rc<RefCell<TreeNode>>>, current: &mut Vec<char>, smallest: &mut String) {
+        if let Some(node_ref) = node {
+            current.push(Solution::i32_to_char(&node_ref.borrow().val));
+
+            if node_ref.borrow().left.is_none() && node_ref.borrow().right.is_none() {
+                let current_str: String = current.iter().rev().collect();
+                if smallest.is_empty() || current_str < *smallest {
+                    *smallest = current_str;
+                }
+            } else {
+                Self::dfs(&node_ref.borrow().left, current, smallest);
+                Self::dfs(&node_ref.borrow().right, current, smallest);
+            }
+
+            current.pop();
+        }
     }
 }
 
