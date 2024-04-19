@@ -1,5 +1,12 @@
 struct Solution;
 impl Solution {
+    // for each cell
+    // if node has been visited ignore it
+    // if node is a 0 ignore it
+    // if prev node is not empty, island count += 1
+    // recursively start searching
+    // mark current node as visited
+    // dfs all 4 directions that is within bounds
     pub fn num_islands(grid: Vec<Vec<char>>) -> i32 {
         let mut grid = grid;
         let mut count = 0;
