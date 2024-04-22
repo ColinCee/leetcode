@@ -5,7 +5,6 @@ struct Solution;
 impl Solution {
     // Using BFS
     // starting from 0000
-    // Add all next steps onto queue
     // while queue not empty
     // pop from queue
     // if current is visited
