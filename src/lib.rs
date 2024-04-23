@@ -1,6 +1,7 @@
 pub mod p0129_sum_root_to_leaf_numbers;
 pub mod p0200_number_of_islands;
 pub mod p0226_invert_binary_tree;
+pub mod p0310_minimum_height_trees;
 pub mod p0392_is_subsequence;
 pub mod p0404_sum_of_left_leaves;
 pub mod p0463_island_perimeter;
