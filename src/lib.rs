@@ -11,4 +11,5 @@ pub mod p0988_smallest_string_starting_from_leaf;
 pub mod p1137_n_th_tribonacci_number;
 pub mod p1971_find_if_path_exists_in_graph;
 pub mod p1992_find_all_groups_of_farmland;
+pub mod p2370_longest_ideal_subsequence;
 pub mod trees;
