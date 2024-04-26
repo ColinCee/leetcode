@@ -35,6 +35,7 @@ impl Solution {
         result
     }
     pub fn valid_path(n: i32, edges: Vec<Vec<i32>>, source: i32, destination: i32) -> bool {
+        let _ = n;
         let mut visited: HashSet<i32> = HashSet::new();
         let mut edge_map: HashMap<i32, HashSet<i32>> = HashMap::new();
 

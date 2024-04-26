@@ -63,10 +63,10 @@ impl Solution {
 
 pub fn solve() {
     // Implement the solution here
-    let deadends = [
-        "8887", "8889", "8878", "8898", "8788", "8988", "7888", "9888",
-    ];
-    let target = "8888";
+    // let deadends = [
+    //     "8887", "8889", "8878", "8898", "8788", "8988", "7888", "9888",
+    // ];
+    // let target = "8888";
     let deadends = vec!["0201", "0101", "0102", "1212", "2002"]
         .into_iter()
         .map(|s| s.to_string())
