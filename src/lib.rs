@@ -12,5 +12,6 @@ pub mod p1137_n_th_tribonacci_number;
 pub mod p1289_minimum_falling_path_sum_ii;
 pub mod p1971_find_if_path_exists_in_graph;
 pub mod p1992_find_all_groups_of_farmland;
+pub mod p2000_reverse_prefix_of_word;
 pub mod p2370_longest_ideal_subsequence;
 pub mod trees;
