@@ -1,40 +1,24 @@
 struct Solution;
 
 impl Solution {
-    fn revision_to_int(rev: &str) -> i32 {
-        // trim all leading zeroes
-        let valid = rev.trim_start_matches("0");
-        if valid.len() == 0 {
-            return 0;
-        }
-        valid.parse::<i32>().unwrap()
-    }
-
     pub fn compare_version(version1: String, version2: String) -> i32 {
-        let revisions_1 = version1.split(".").collect::<Vec<&str>>();
-        let revisions_2 = version2.split(".").collect::<Vec<&str>>();
+        let v1: Vec<i32> = version1.split('.').map(|s| s.parse().unwrap()).collect();
+        let v2: Vec<i32> = version2.split('.').map(|s| s.parse().unwrap()).collect();
 
-        let max_revs = revisions_1.len().max(revisions_2.len());
+        let mut i = 0;
+        while i < v1.len() || i < v2.len() {
+            let n1 = v1.get(i).unwrap_or(&0);
+            let n2 = v2.get(i).unwrap_or(&0);
 
-        for i in 0..max_revs {
-            let mut rev_1 = 0;
-            let mut rev_2 = 0;
-            if i < revisions_1.len() {
-                rev_1 = Solution::revision_to_int(revisions_1[i]);
-            }
-
-            if i < revisions_2.len() {
-                rev_2 = Solution::revision_to_int(revisions_2[i]);
-            }
-
-            if rev_1 > rev_2 {
+            if n1 < n2 {
+                return -1;
+            } else if n1 > n2 {
                 return 1;
             }
 
-            if rev_2 > rev_1 {
-                return -1;
-            }
+            i += 1;
         }
+
         0
     }
 }
