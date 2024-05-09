@@ -1,6 +1,7 @@
 pub mod p0129_sum_root_to_leaf_numbers;
 pub mod p0165_compare_version_numbers;
 pub mod p0200_number_of_islands;
+pub mod p0206_reverse_linked_list;
 pub mod p0226_invert_binary_tree;
 pub mod p0310_minimum_height_trees;
 pub mod p0392_is_subsequence;
