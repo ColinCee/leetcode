@@ -17,4 +17,5 @@ pub mod p1992_find_all_groups_of_farmland;
 pub mod p2000_reverse_prefix_of_word;
 pub mod p2370_longest_ideal_subsequence;
 pub mod p2441_largest_positive_integer_that_exists_with_its_negative;
+pub mod p3075_maximize_happiness_of_selected_children;
 pub mod trees;
