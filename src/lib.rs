@@ -4,6 +4,7 @@ pub mod p0200_number_of_islands;
 pub mod p0206_reverse_linked_list;
 pub mod p0226_invert_binary_tree;
 pub mod p0310_minimum_height_trees;
+pub mod p0350_intersection_of_two_arrays_ii;
 pub mod p0392_is_subsequence;
 pub mod p0404_sum_of_left_leaves;
 pub mod p0463_island_perimeter;
